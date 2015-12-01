@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y tar \
                         build-essential \
                         python3\
                         python3-pip \
-                        git
+                        git \
+                        libjpeg-dev \
+                        zlib1g-dev
 
 
 WORKDIR /root
@@ -20,6 +22,9 @@ RUN git clone https://github.com/django-oscar/django-oscar.git
 WORKDIR django-oscar
 
 RUN pip3 install virtualenv
+RUN pip3 install -r requirements.txt
+RUN pip3 install django-oscar
+
 RUN virtualenv-3.4 oscar
 RUN bash -c "source oscar/bin/activate; make sandbox"
 
